@@ -10,28 +10,74 @@
       margin: 0;
       padding: 10px;
       background-color: #f0f0f0;
-      text-align: center;
     }
-    h1 {
-      color: #333;
+    #chat-box {
+      border: 1px solid #ccc;
+      height: 70vh;
+      overflow-y: scroll;
+      padding: 10px;
+      background-color: white;
+      margin-bottom: 10px;
+    }
+    #message-input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #send-btn {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      #message-input {
+        width: 70%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Stranger Chat!</h1>
-  <p>Start chatting with a stranger below!</p>
+  <h2>Stranger Chat</h2>
+  <div id="chat-box"></div>
+  <input type="text" id="message-input" placeholder="Type your message...">
+  <button id="send-btn">Send</button>
 
-  <!-- Tawk.to Chat Widget Code -->
-  <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='6807144ad6f6461915758608'; //
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
-    })();
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    const messageInput = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    // Simulated stranger chat (local for simplicity)
+    sendBtn.addEventListener('click', () => {
+      const message = messageInput.value;
+      if (message.trim() !== '') {
+        const messageElement = document.createElement('p');
+        messageElement.textContent = `You: ${message}`;
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Simulate stranger reply
+        setTimeout(() => {
+          const reply = document.createElement('p');
+          reply.textContent = `Stranger: Hi! ${message}`;
+          chatBox.appendChild(reply);
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 1000);
+
+        messageInput.value = '';
+      }
+    });
+
+    // Enter key press to send message
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
   </script>
 </body>
 </html>
